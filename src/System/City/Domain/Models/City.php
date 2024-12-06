@@ -27,12 +27,12 @@ use Illuminate\Database\Eloquent\Model;
 class City extends Model
 {
     /**
-     * The attributes that are mass assignable.
+     * The attributes that aren't mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
+    protected $guarded = [
+        'id',
     ];
 
     /**

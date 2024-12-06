@@ -2,28 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Cities;
+namespace Tests\Feature\Airlines;
 
-use Database\Factories\CityFactory;
+use Database\Factories\AirlineFactory;
 use Illuminate\Http\JsonResponse;
-use Lightit\System\City\App\Transformers\CityTransformer;
-use Lightit\System\City\Domain\Models\City;
+use Lightit\System\Airline\App\Transformers\AirlineTransformer;
+use Lightit\System\Airline\Domain\Models\Airline;
 use function Pest\Laravel\getJson;
 
-describe('cities', function () {
-    it('can list cities successfully', function () {
-        $cities = CityFactory::new()
+describe('airlines', function () {
+    it('can list airlines successfully', function () {
+        $airlines = AirlineFactory::new()
             ->count(5)
             ->createMany();
 
-        $transformer = new CityTransformer();
+        $transformer = new AirlineTransformer();
 
-        getJson(url('/api/cities'))
+        getJson(url('/api/airlines'))
             ->assertSuccessful()
             ->assertExactJson([
                 'status' => JsonResponse::HTTP_OK,
                 'success' => true,
-                'data' => $cities->map(fn (City $city) => $transformer->transform($city))->toArray(),
+                'data' => $airlines->map(fn (Airline $airline) => $transformer->transform($airline))->toArray(),
                 'pagination' => [
                     'count' => 5,
                     'currentPage' => 1,
@@ -35,8 +35,8 @@ describe('cities', function () {
             ]);
     });
 
-    it('returns an empty array if no cities exist', function () {
-        getJson(url('/api/cities'))
+    it('returns an empty array if no airlines exist', function () {
+        getJson(url('/api/airlines'))
             ->assertSuccessful()
             ->assertExactJson([
                 'status' => JsonResponse::HTTP_OK,
