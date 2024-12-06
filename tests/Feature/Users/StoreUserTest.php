@@ -6,7 +6,6 @@ namespace Tests\Feature\Users;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
-use Lightit\Backoffice\Users\App\Controllers\StoreUserController;
 use Lightit\Backoffice\Users\App\Notifications\UserRegistered;
 use Lightit\Backoffice\Users\Domain\Models\User;
 use Tests\RequestFactories\StoreUserRequestFactory;
@@ -15,7 +14,6 @@ use function Pest\Laravel\postJson;
 use function PHPUnit\Framework\assertTrue;
 
 describe('users', function () {
-    /** @see StoreUserController */
     it('can create a user successfully', function () {
         Notification::fake();
 

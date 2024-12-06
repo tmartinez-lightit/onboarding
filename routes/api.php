@@ -6,6 +6,11 @@ use Lightit\Backoffice\Users\App\Controllers\DeleteUserController;
 use Lightit\Backoffice\Users\App\Controllers\GetUserController;
 use Lightit\Backoffice\Users\App\Controllers\ListUserController;
 use Lightit\Backoffice\Users\App\Controllers\StoreUserController;
+use Lightit\System\City\App\Controllers\ListCityController;
+use Lightit\System\City\App\Controllers\UpdateCityController;
+use Lightit\System\City\App\Controllers\DeleteCityController;
+use Lightit\System\City\App\Controllers\StoreCityController;
+use Lightit\System\City\App\Controllers\GetCityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,10 +33,25 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 |--------------------------------------------------------------------------
 */
 Route::prefix('users')
-    ->middleware([])
     ->group(static function () {
         Route::get('/', ListUserController::class);
         Route::get('/{user}', GetUserController::class)->withTrashed();
         Route::post('/', StoreUserController::class);
         Route::delete('/{user}', DeleteUserController::class);
+    });
+
+/*
+|--------------------------------------------------------------------------
+| Cities Routes
+|--------------------------------------------------------------------------
+*/
+Route::prefix('cities')
+    ->group(static function () {
+        Route::post('/', StoreCityController::class);
+        Route::get('/', ListCityController::class);
+        Route::prefix('{city}')->group(function () {
+            Route::get('/', GetCityController::class);
+            Route::put('/', UpdateCityController::class);
+            Route::delete('/', DeleteCityController::class);
+        });
     });
