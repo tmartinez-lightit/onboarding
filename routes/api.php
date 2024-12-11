@@ -16,17 +16,7 @@ use Lightit\System\Airline\App\Controllers\ListAirlineController;
 use Lightit\System\Airline\App\Controllers\GetAirlineController;
 use Lightit\System\Airline\App\Controllers\UpdateAirlineController;
 use Lightit\System\Airline\App\Controllers\DeleteAirlineController;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
+use Lightit\System\Flight\App\Controllers\ListFlightController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -75,4 +65,14 @@ Route::prefix('airlines')
             Route::put('/', UpdateAirlineController::class);
             Route::delete('/', DeleteAirlineController::class);
         });
+    });
+
+/*
+|--------------------------------------------------------------------------
+| Flights Routes
+|--------------------------------------------------------------------------
+*/
+Route::prefix('flights')
+    ->group(static function () {
+        Route::get('/', ListFlightController::class);
     });

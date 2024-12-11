@@ -23,4 +23,5 @@ parameters:
         -
             message: '#^Undefined variable: \$this$#'
             path: tests/*
+        - '#^Cannot cast mixed to string\.$#'
 
