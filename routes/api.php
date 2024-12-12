@@ -17,6 +17,7 @@ use Lightit\System\Airline\App\Controllers\GetAirlineController;
 use Lightit\System\Airline\App\Controllers\UpdateAirlineController;
 use Lightit\System\Airline\App\Controllers\DeleteAirlineController;
 use Lightit\System\Flight\App\Controllers\ListFlightController;
+use Lightit\System\Flight\App\Controllers\GetFlightController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -75,4 +76,5 @@ Route::prefix('airlines')
 Route::prefix('flights')
     ->group(static function () {
         Route::get('/', ListFlightController::class);
+        Route::get('/{flight}', GetFlightController::class);
     });
