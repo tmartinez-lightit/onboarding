@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Lightit\System\Flight\App\Controllers;
 
 use Illuminate\Http\JsonResponse;
-use Lightit\System\Flight\App\Request\StoreFlightRequest;
+use Lightit\System\Flight\App\Request\UpsertFlightRequest;
 use Lightit\System\Flight\App\Transformers\FlightTransformer;
 use Lightit\System\Flight\Domain\Actions\StoreFlightAction;
 
 class StoreFlightController
 {
-    public function __invoke(StoreFlightRequest $request, StoreFlightAction $action): JsonResponse
+    public function __invoke(UpsertFlightRequest $request, StoreFlightAction $action): JsonResponse
     {
         $flight = $action->execute($request->toDTO());
 

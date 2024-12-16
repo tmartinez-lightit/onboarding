@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
 use Lightit\System\Flight\Domain\DataTransferObjects\FlightDTO;
 
-class StoreFlightRequest extends FormRequest
+class UpsertFlightRequest extends FormRequest
 {
     public const AIRLINE_ID = 'airlineId';
 

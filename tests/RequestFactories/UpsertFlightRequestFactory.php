@@ -7,7 +7,7 @@ namespace Tests\RequestFactories;
 use Carbon\CarbonImmutable;
 use Worksome\RequestFactories\RequestFactory;
 
-class StoreFlightRequestFactory extends RequestFactory
+class UpsertFlightRequestFactory extends RequestFactory
 {
     public function definition(): array
     {

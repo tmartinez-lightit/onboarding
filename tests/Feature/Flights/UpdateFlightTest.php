@@ -6,25 +6,27 @@ namespace Tests\Feature\Flights;
 
 use Database\Factories\AirlineFactory;
 use Database\Factories\CityFactory;
+use Database\Factories\FlightFactory;
 use Tests\RequestFactories\UpsertFlightRequestFactory;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertDatabaseMissing;
-use function Pest\Laravel\postJson;
+use function Pest\Laravel\putJson;
 
 describe('flights', function () {
-    it('can store a flight successfully', function () {
-        $airline = AirlineFactory::new()->createOne();
-        $originCity = CityFactory::new()->createOne();
-        $destinationCity = CityFactory::new()->createOne();
+    it('can update a flight successfully', function () {
+        $flight = FlightFactory::new()->createOne();
+        $newAirline = AirlineFactory::new()->createOne();
+        $newOriginCity = CityFactory::new()->createOne();
+        $newDestinationCity = CityFactory::new()->createOne();
 
         $data = UpsertFlightRequestFactory::new()->state([
-            'airlineId' => $airline->id,
-            'originCityId' => $originCity->id,
-            'destinationCityId' => $destinationCity->id,
+            'airlineId' => $newAirline->id,
+            'originCityId' => $newOriginCity->id,
+            'destinationCityId' => $newDestinationCity->id,
         ])->create();
 
-        postJson(url('/api/flights'), $data)
-            ->assertCreated()
+        putJson(url("/api/flights/{$flight->id}"), $data)
+            ->assertOk()
             ->assertJsonStructure([
                 'data' => [
                     'id',
@@ -37,20 +39,30 @@ describe('flights', function () {
             ]);
 
         assertDatabaseHas('flights', [
-            'airline_id' => $airline->id,
-            'origin_city_id' => $originCity->id,
-            'destination_city_id' => $destinationCity->id,
+            'id' => $flight->id,
+            'airline_id' => $newAirline->id,
+            'origin_city_id' => $newOriginCity->id,
+            'destination_city_id' => $newDestinationCity->id,
             'departure_datetime' => $data['departureDatetime'],
             'arrival_datetime' => $data['arrivalDatetime'],
         ]);
+
+        assertDatabaseMissing('flights', [
+            'id' => $flight->id,
+            'airline_id' => $flight->airline_id,
+            'origin_city_id' => $flight->origin_city_id,
+            'destination_city_id' => $flight->destination_city_id,
+        ]);
     });
 
-    it('returns validations errors when data is invalid', function (string $field, mixed $value, string $error) {
+    it('returns validation errors when data is invalid', function (string $field, mixed $value, string $error) {
+        $flight = FlightFactory::new()->createOne();
+
         $data = UpsertFlightRequestFactory::new()->create([
             $field => $value,
         ]);
 
-        postJson(url('/api/flights'), $data)
+        putJson(url("/api/flights/{$flight->id}"), $data)
             ->assertUnprocessable()
             ->assertJson([
                 'status' => 422,
@@ -82,14 +94,15 @@ describe('flights', function () {
     ]);
 
     it('returns error when origin city is the same as destination city', function () {
-        $originCity = CityFactory::new()->createOne();
+        $flight = FlightFactory::new()->createOne();
+        $city = CityFactory::new()->createOne();
 
         $data = UpsertFlightRequestFactory::new()->state([
-            'originCityId' => $originCity->id,
-            'destinationCityId' => $originCity->id,
+            'originCityId' => $city->id,
+            'destinationCityId' => $city->id,
         ])->create();
 
-        postJson(url('/api/flights'), $data)
+        putJson(url("/api/flights/{$flight->id}"), $data)
             ->assertUnprocessable()
             ->assertJson([
                 'status' => 422,
@@ -106,8 +119,16 @@ describe('flights', function () {
             ]);
 
         assertDatabaseMissing('flights', [
-            'origin_city_id' => $originCity->id,
-            'destination_city_id' => $originCity->id,
+            'id' => $flight->id,
+            'origin_city_id' => $city->id,
+            'destination_city_id' => $city->id,
         ]);
+    });
+
+    it('returns not found when flight does not exist', function () {
+        $data = UpsertFlightRequestFactory::new()->create();
+
+        putJson(url('/api/flights/99999'), $data)
+            ->assertNotFound();
     });
 });
