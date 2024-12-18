@@ -21,6 +21,7 @@ use Lightit\System\Flight\App\Controllers\GetFlightController;
 use Lightit\System\Flight\App\Controllers\StoreFlightController;
 use Lightit\System\Flight\App\Controllers\UpdateFlightController;
 use Lightit\System\Flight\App\Controllers\DeleteFlightController;
+use Lightit\System\AirlineCity\App\Controllers\StoreAirlineCityController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -85,4 +86,14 @@ Route::prefix('flights')
             Route::put('/', UpdateFlightController::class);
             Route::delete('/', DeleteFlightController::class);
         });
+    });
+
+/*
+|--------------------------------------------------------------------------
+| Airline Cities Routes
+|--------------------------------------------------------------------------
+*/
+Route::prefix('airline-cities')
+    ->group(static function () {
+        Route::post('/', StoreAirlineCityController::class);
     });
