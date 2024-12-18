@@ -17,8 +17,8 @@ class ListCityAction
     {
         /** @var LengthAwarePaginator<City> */
         return QueryBuilder::for(City::class)
-            ->allowedFilters(['name', 'id'])
-            ->allowedSorts('name', 'id')
+            ->allowedFilters(['name'])
+            ->allowedSorts('name')
             ->paginate();
     }
 }
