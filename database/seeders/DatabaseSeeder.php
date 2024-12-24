@@ -19,8 +19,14 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         UserFactory::new()->count(10)->create();
+
         $cities = CityFactory::new()->count(10)->create();
-        $airlines = AirlineFactory::new()->count(10)->create();
+
+        $airlines = AirlineFactory::new()
+            ->count(10)
+            ->recycle($cities)
+            ->withCities(4)
+            ->create();
 
         FlightFactory::new()
             ->count(10)

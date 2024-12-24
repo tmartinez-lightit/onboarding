@@ -16,6 +16,8 @@ describe('flights', function () {
         $airline = AirlineFactory::new()->createOne();
         $originCity = CityFactory::new()->createOne();
         $destinationCity = CityFactory::new()->createOne();
+        $airline->cities()->attach($originCity);
+        $airline->cities()->attach($destinationCity);
 
         $data = UpsertFlightRequestFactory::new()->state([
             'airlineId' => $airline->id,

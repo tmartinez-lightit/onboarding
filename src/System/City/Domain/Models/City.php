@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace Lightit\System\City\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Lightit\System\Airline\Domain\Models\Airline;
+use Lightit\System\Flight\Domain\Models\Flight;
 
 /**
  * Domain\System\City\Models\City
@@ -21,6 +25,13 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|City whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|City whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|City whereUpdatedAt($value)
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Airline> $airlines
+ * @property-read int|null $airlines_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Flight> $incomingFlights
+ * @property-read int|null $incoming_flights_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Flight> $outgoingFlights
+ * @property-read int|null $outgoing_flights_count
  *
  * @mixin \Eloquent
  */
@@ -46,5 +57,29 @@ class City extends Model
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ];
+    }
+
+    /**
+     * @return HasMany<Flight, $this>
+     */
+    public function outgoingFlights(): HasMany
+    {
+        return $this->hasMany(Flight::class, 'origin_city_id');
+    }
+
+    /**
+     * @return HasMany<Flight, $this>
+     */
+    public function incomingFlights(): HasMany
+    {
+        return $this->hasMany(Flight::class, 'destination_city_id');
+    }
+
+    /**
+     * @return BelongsToMany<Airline, $this>
+     */
+    public function airlines(): BelongsToMany
+    {
+        return $this->belongsToMany(Airline::class);
     }
 }
