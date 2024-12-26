@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Lightit\System\Airline\Domain\Models\Airline;
 use Lightit\System\AirlineCity\Domain\DataTransferObjects\AirlineCityDTO;
 
-class StoreAirlineCityRequest extends FormRequest
+class BulkDeleteAirlineCityRequest extends FormRequest
 {
     public const CITY_IDS = 'cityIds';
 
@@ -31,10 +31,14 @@ class StoreAirlineCityRequest extends FormRequest
                     ->whereIn('city_id', $this->input(self::CITY_IDS))
                     ->pluck('city_id');
 
-                if ($existingCities->isNotEmpty()) {
+                $citiesNotAttachedToAirline = collect((array) $this->input(self::CITY_IDS))->diff($existingCities);
+
+                if ($citiesNotAttachedToAirline->isNotEmpty()) {
                     $this->validator->errors()->add(
                         'cityIds',
-                        'Cities with IDs (' . $existingCities->join(', ') . ') are already attached to this airline'
+                        'Cities with IDs (' . $citiesNotAttachedToAirline->join(
+                            ', '
+                        ) . ') are not attached to this airline'
                     );
                 }
             },

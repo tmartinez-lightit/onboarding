@@ -6,6 +6,7 @@ namespace Tests\Feature\Flights;
 
 use Database\Factories\AirlineFactory;
 use Database\Factories\CityFactory;
+use Illuminate\Http\JsonResponse;
 use Tests\RequestFactories\UpsertFlightRequestFactory;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertDatabaseMissing;
@@ -55,7 +56,7 @@ describe('flights', function () {
         postJson(url('/api/flights'), $data)
             ->assertUnprocessable()
             ->assertJson([
-                'status' => 422,
+                'status' => JsonResponse::HTTP_UNPROCESSABLE_ENTITY,
                 'success' => false,
                 'error' => [
                     'code' => 'validation_failed',
@@ -94,7 +95,7 @@ describe('flights', function () {
         postJson(url('/api/flights'), $data)
             ->assertUnprocessable()
             ->assertJson([
-                'status' => 422,
+                'status' => JsonResponse::HTTP_UNPROCESSABLE_ENTITY,
                 'success' => false,
                 'error' => [
                     'code' => 'validation_failed',

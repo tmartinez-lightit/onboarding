@@ -7,15 +7,15 @@ namespace Lightit\System\AirlineCity\App\Controllers;
 use Illuminate\Http\JsonResponse;
 use Lightit\System\Airline\App\Transformers\AirlineTransformer;
 use Lightit\System\Airline\Domain\Models\Airline;
-use Lightit\System\AirlineCity\App\Requests\StoreAirlineCityRequest;
-use Lightit\System\AirlineCity\Domain\Actions\StoreAirlineCityAction;
+use Lightit\System\AirlineCity\App\Requests\BulkCreateAirlineCityRequest;
+use Lightit\System\AirlineCity\Domain\Actions\BulkCreateAirlineCityAction;
 
-class StoreAirlineCityController
+class BulkCreateAirlineCityController
 {
     public function __invoke(
         Airline $airline,
-        StoreAirlineCityRequest $request,
-        StoreAirlineCityAction $action,
+        BulkCreateAirlineCityRequest $request,
+        BulkCreateAirlineCityAction $action,
     ): JsonResponse {
         $airline = $action->execute($airline, $request->toDTO());
 
