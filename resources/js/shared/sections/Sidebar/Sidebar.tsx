@@ -7,7 +7,7 @@ import { ROUTES } from "~/router";
 export const Sidebar = () => {
   const location = useLocation();
   const current = location.pathname;
-  const navigation = [{ name: "Home", href: ROUTES.home }];
+  const navigation = [{ name: "Cities", href: ROUTES.cities }];
 
   return (
     <>

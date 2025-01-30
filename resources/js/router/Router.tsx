@@ -1,16 +1,12 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
-import { GuestRouter } from "~/domains";
-import { NotFound } from "~/sections";
+import { SystemRouter } from "~/domains";
 
 export const Router = () => {
   return (
     <BrowserRouter>
-      <GuestRouter />
-      <Routes>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <SystemRouter />
     </BrowserRouter>
   );
 };

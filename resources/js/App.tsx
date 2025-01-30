@@ -6,6 +6,8 @@ import { createRoot } from "react-dom/client";
 
 import "./../css/app.css";
 
+import { NuqsAdapter } from "nuqs/adapters/react";
+
 import { Providers } from "./providers";
 import { Router } from "./router";
 
@@ -20,7 +22,9 @@ if (!root) {
 createRoot(root).render(
   <StrictMode>
     <Providers>
-      <Router />
+      <NuqsAdapter>
+        <Router />
+      </NuqsAdapter>
     </Providers>
   </StrictMode>,
 );
