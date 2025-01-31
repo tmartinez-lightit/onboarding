@@ -18,7 +18,8 @@ class ListCityAction
         /** @var LengthAwarePaginator<City> */
         return QueryBuilder::for(City::class)
             ->allowedFilters(['name', 'id'])
-            ->allowedSorts('name', 'id')
+            ->allowedSorts('name', 'id', 'created_at', 'updated_at')
+            ->defaultSort('-updated_at', '-created_at')
             ->paginate();
     }
 }

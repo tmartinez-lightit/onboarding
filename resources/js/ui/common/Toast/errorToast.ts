@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { useToastStore } from "./toastStore";
+import { TOAST_TYPES, useToastStore } from "./toastStore";
 
 const axiosErrorSchema = z.object({
   response: z.object({
@@ -30,14 +30,14 @@ export const errorToast = (error: unknown): void => {
 
   if (validatedError) {
     void pushToast({
-      type: "error",
+      type: TOAST_TYPES.error,
       title: "Validation Error",
       message: validatedError.response.data.error.message,
     });
   } else {
     console.error(error);
     void pushToast({
-      type: "error",
+      type: TOAST_TYPES.error,
       title: "Error",
       message: "Unknown error",
     });

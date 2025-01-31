@@ -23,7 +23,7 @@ export const NotFound = () => {
 
         <div className="mt-10 flex justify-center">
           <Link
-            to={ROUTES.home}
+            to={ROUTES.cities}
             className="text-sm font-semibold leading-7 text-white"
           >
             <span aria-hidden="true">&larr;</span> Back to home

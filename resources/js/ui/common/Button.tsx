@@ -7,6 +7,8 @@ const BUTTON_VARIANT = {
   SECONDARY: "secondary",
   OUTLINE: "outline",
   TERTIARY: "tertiary",
+  GHOST: "ghost",
+  COMPACT: "compact",
 } as const;
 type ButtonVariant = (typeof BUTTON_VARIANT)[keyof typeof BUTTON_VARIANT];
 
@@ -17,9 +19,17 @@ const SIZE = {
 } as const;
 type Size = (typeof SIZE)[keyof typeof SIZE];
 
+const SPACING = {
+  TIGHT: "tight",
+  NORMAL: "normal",
+  LOOSE: "loose",
+} as const;
+type Spacing = (typeof SPACING)[keyof typeof SPACING];
+
 export interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
   variant?: ButtonVariant;
   size?: Size;
+  spacing?: Spacing;
 }
 
 export const Button = forwardRef(
@@ -29,6 +39,7 @@ export const Button = forwardRef(
       className,
       variant = "primary",
       size = "md",
+      spacing,
       disabled = false,
       children,
       ...props
@@ -50,6 +61,8 @@ export const Button = forwardRef(
             "border-gray-300 text-gray-300 hover:border-gray-400 hover:text-gray-800",
           variant === BUTTON_VARIANT.TERTIARY &&
             "font-normal text-gray-500 hover:text-gray-600",
+          variant === BUTTON_VARIANT.GHOST &&
+            "border-none text-gray-500 shadow-none hover:opacity-75 focus:bg-gray-100 focus:ring-0 active:opacity-85",
         ],
 
         disabled && [
@@ -63,6 +76,10 @@ export const Button = forwardRef(
           "rounded px-3 py-2 text-xs leading-none tracking-wider",
         size === SIZE.MEDIUM && "px-4 py-2 text-sm",
         size === SIZE.LARGE && "px-7 py-4 text-lg leading-[22px]",
+
+        spacing === SPACING.TIGHT && "p-1",
+        spacing === SPACING.NORMAL && "px-4 py-2",
+        spacing === SPACING.LOOSE && "px-7 py-4",
 
         className,
       )}

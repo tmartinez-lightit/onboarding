@@ -1,8 +1,5 @@
 export const ROUTES = {
-  base: "/",
-  login: "/login",
-  home: "/home",
-  users: "/users",
-  airlines: "/airlines",
+  base: "/cities",
+  cities: "/cities",
   notFound: "*",
 } as const;

@@ -4,9 +4,14 @@ import { create } from "zustand";
 
 import { asyncTimeout } from "~/utils/asyncTimeout";
 
-export const toastTypes = ["info", "success", "error", "warning"] as const;
+export const TOAST_TYPES = {
+  info: "info",
+  success: "success",
+  error: "error",
+  warning: "warning",
+} as const;
 
-export type ToastType = (typeof toastTypes)[number];
+export type ToastType = (typeof TOAST_TYPES)[keyof typeof TOAST_TYPES];
 
 export interface Toast {
   id: string;

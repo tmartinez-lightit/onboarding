@@ -56,7 +56,7 @@ export const Pagination = ({
               <button
                 onClick={() => onPageChange(currentPage + 1)}
                 disabled={currentPage >= totalPages}
-                className="hover:bg-gray-5 relative inline-flex items-center rounded-r-md p-2 text-gray-400 ring-1 ring-inset ring-gray-300 disabled:opacity-50"
+                className="relative inline-flex items-center rounded-r-md p-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:opacity-50"
                 type="button"
               >
                 <span className="sr-only">Next</span>
