@@ -49,7 +49,7 @@ export const Table = <T,>({ table, loading }: TableProps<T>) => {
   };
 
   return (
-    <div className="overflow-hidden bg-white shadow-md ring-1 ring-black/5 sm:rounded-lg">
+    <div className="overflow-hidden overflow-x-auto bg-white shadow-md ring-1 ring-black/5 sm:rounded-lg">
       <table className="min-w-full divide-y divide-gray-200">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (

@@ -7,18 +7,20 @@ import { ROUTES } from "~/router";
 export const Sidebar = () => {
   const location = useLocation();
   const current = location.pathname;
-  const navigation = [{ name: "Cities", href: ROUTES.cities }];
+  const navigation = [
+    { name: "Cities", href: ROUTES.cities },
+    { name: "Airlines", href: ROUTES.airlines },
+  ];
 
   return (
     <>
-      {/* Static sidebar for desktop */}
       <div className="hidden lg:fixed lg:inset-y-0 lg:z-10 lg:flex lg:w-72 lg:flex-col">
         <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4">
           <div className="flex h-16 shrink-0 items-center">
             <img
               className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-              alt="Your Company"
+              src="./light-it-logo.svg"
+              alt="Light IT"
             />
           </div>
 

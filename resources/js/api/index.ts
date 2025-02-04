@@ -1,3 +1,4 @@
+export * from "./airlines";
 export * from "./api.types";
 export * from "./axios";
 export * from "./cities";
