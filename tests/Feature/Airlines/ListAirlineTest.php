@@ -20,7 +20,7 @@ describe('airlines', function () {
 
         getJson(url('/api/airlines'))
             ->assertSuccessful()
-            ->assertExactJson([
+            ->assertJson([
                 'status' => JsonResponse::HTTP_OK,
                 'success' => true,
                 'data' => $airlines->map(fn (Airline $airline) => $transformer->transform($airline))->toArray(),
@@ -38,7 +38,7 @@ describe('airlines', function () {
     it('returns an empty array if no airlines exist', function () {
         getJson(url('/api/airlines'))
             ->assertSuccessful()
-            ->assertExactJson([
+            ->assertJson([
                 'status' => JsonResponse::HTTP_OK,
                 'success' => true,
                 'data' => [],

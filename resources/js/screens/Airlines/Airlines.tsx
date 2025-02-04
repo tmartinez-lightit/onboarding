@@ -8,7 +8,6 @@ import { useQueryState } from "nuqs";
 
 import { Airline, getAirlinesQuery } from "~/api";
 import { Pagination, Table, Title } from "~/shared/components/ui";
-import { Button, Modal } from "~/ui";
 
 export const Airlines = () => {
   const [page, setPage] = useQueryState("page", {
@@ -22,6 +21,10 @@ export const Airlines = () => {
   const columnHelper = createColumnHelper<Airline>();
 
   const columns = [
+    columnHelper.accessor("id", {
+      header: "ID",
+      cell: (info) => <div className="max-w-xs">{info.getValue()}</div>,
+    }),
     columnHelper.accessor("name", {
       header: "Airline Name",
       cell: (info) => <div className="max-w-xs">{info.getValue()}</div>,
@@ -32,14 +35,12 @@ export const Airlines = () => {
         <div className="max-w-md whitespace-normal">{info.getValue()}</div>
       ),
     }),
-    columnHelper.accessor("cities", {
-      header: "Cities",
+    columnHelper.accessor("activeFlightsCount", {
+      header: "Active Flights",
       cell: (info) => {
-        const cities = info.getValue();
+        const activeFlightsCount = info.getValue();
         return (
-          <div className="max-w-xs whitespace-normal">
-            {cities?.length ? cities.map((city) => city.name).join(", ") : "-"}
-          </div>
+          <div className="max-w-xs whitespace-normal">{activeFlightsCount}</div>
         );
       },
     }),

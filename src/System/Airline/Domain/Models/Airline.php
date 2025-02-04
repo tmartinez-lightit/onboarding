@@ -6,7 +6,9 @@ namespace Lightit\System\Airline\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Lightit\System\City\Domain\Models\City;
+use Lightit\System\Flight\Domain\Models\Flight;
 
 /**
  * Domain\Airlines\Models\Airline
@@ -26,6 +28,10 @@ use Lightit\System\City\Domain\Models\City;
  * @method static \Illuminate\Database\Eloquent\Builder|Airline whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Airline whereUpdatedAt($value)
  *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Flight> $flights
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Flight> $activeFlights
+ * @property-read int|null $active_flights_count
+ * @property-read int|null $flights_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, City> $cities
  * @property-read int|null $cities_count
  *
@@ -61,5 +67,18 @@ class Airline extends Model
     public function cities(): BelongsToMany
     {
         return $this->belongsToMany(City::class);
+    }
+
+    /** @return HasMany<Flight, $this> */
+    public function flights(): HasMany
+    {
+        return $this->hasMany(Flight::class);
+    }
+
+    /** @return HasMany<Flight, $this> */
+    public function activeFlights(): HasMany
+    {
+        return $this->hasMany(Flight::class)
+            ->where('arrival_datetime', '>', now());
     }
 }

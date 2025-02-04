@@ -19,6 +19,7 @@ class ListAirlineAction
         return QueryBuilder::for(Airline::class)
             ->allowedFilters(['name'])
             ->allowedSorts('name')
+            ->withCount('activeFlights')
             ->paginate();
     }
 }
