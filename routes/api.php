@@ -23,6 +23,7 @@ use Lightit\System\Flight\App\Controllers\UpdateFlightController;
 use Lightit\System\Flight\App\Controllers\DeleteFlightController;
 use Lightit\System\AirlineCity\App\Controllers\BulkCreateAirlineCityController;
 use Lightit\System\AirlineCity\App\Controllers\BulkDeleteAirlineCityController;
+use Lightit\System\AirlineCity\App\Controllers\ToggleAirlineCityController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -73,6 +74,7 @@ Route::prefix('airlines')
             Route::prefix('cities')->group(function () {
                 Route::post('/', BulkCreateAirlineCityController::class);
                 Route::delete('/', BulkDeleteAirlineCityController::class);
+                Route::post('/toggle', ToggleAirlineCityController::class);
             });
         });
     });
