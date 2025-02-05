@@ -9,7 +9,7 @@ export const Sidebar = () => {
   const current = location.pathname;
   const navigation = [
     { name: "Cities", href: ROUTES.cities },
-    { name: "Airlines", href: ROUTES.airlines },
+    { name: "Airlines", href: ROUTES.airlines.base },
   ];
 
   return (

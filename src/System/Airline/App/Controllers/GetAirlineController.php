@@ -12,6 +12,6 @@ class GetAirlineController
 {
     public function __invoke(Airline $airline): JsonResponse
     {
-        return responder()->success($airline, AirlineTransformer::class)->respond();
+        return responder()->success($airline->loadCount('activeFlights'), AirlineTransformer::class)->respond();
     }
 }
