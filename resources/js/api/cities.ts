@@ -21,6 +21,17 @@ export const getCitiesQuery = (page: string) => ({
   },
 });
 
+export const getCitiesQueryBySearch = (searchQuery: string) => ({
+  queryKey: [DOMAIN, ALL, "getCitiesQueryBySearch", searchQuery],
+  queryFn: async () => {
+    const response = await api.get<ServiceResponse<City[]>>(
+      `/cities?search=${searchQuery}`,
+    );
+
+    return response.data;
+  },
+});
+
 export const createCityQuery = {
   mutation: async (data: UpsertCityPayloadSchema) => {
     const response = await api.post<ServiceResponse<City>>(`/cities`, data);

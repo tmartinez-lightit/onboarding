@@ -1,1 +1,1 @@
-export * from "./AirlineCitiesManager";
+export * from "./AirlineOperations";

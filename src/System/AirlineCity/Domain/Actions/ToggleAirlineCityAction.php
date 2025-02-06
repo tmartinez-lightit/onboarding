@@ -12,7 +12,7 @@ class ToggleAirlineCityAction
     public function execute(Airline $airline, AirlineCityDTO $airlineCityDTO): Airline
     {
         $cityIds = $airlineCityDTO->getCityIds();
-        $existingCityIds = $airline->load('cities')
+        $existingCityIds = $airline
             ->cities()
             ->whereIn('city_id', $cityIds)
             ->pluck('city_id')

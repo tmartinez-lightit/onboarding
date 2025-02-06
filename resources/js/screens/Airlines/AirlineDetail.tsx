@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 
 import { getAirlineDetailQuery } from "../../api/airlines";
+import AirlineOperations from "./components/AirlineOperations";
 
 export const AirlineDetail = () => {
   const { id } = useParams();
@@ -72,6 +73,7 @@ export const AirlineDetail = () => {
           </div>
 
           <div>
+            <AirlineOperations airline={data.data} />
             <h2 className="mb-2 text-xl font-semibold text-gray-700">
               Destinations
             </h2>
