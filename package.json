@@ -98,7 +98,7 @@
     "prettier": "^3.4.1",
     "prettier-plugin-tailwindcss": "^0.6.9",
     "pretty-quick": "^4.0.0",
-    "react-email": "3.0.2",
+    "react-email": "4.0.14",
     "storybook": "^8.4.6",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2",
